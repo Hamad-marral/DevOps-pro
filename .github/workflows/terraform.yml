@@ -26,6 +26,15 @@ jobs:
       with:
         terraform_version: 1.3.0
         
+    - name: Check Working Directory
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Listing root contents:"
+        ls -l /
+        echo "Listing contents of /home/runner/work/rakib-tkxel-devops-project/rakib-tkxel-devops-project:"
+        ls -l /home/runner/work/rakib-tkxel-devops-project/rakib-tkxel-devops-project
+        
     - name: Terraform Init
       run: | 
        pwd
