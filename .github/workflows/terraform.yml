@@ -32,8 +32,8 @@ jobs:
         pwd
         echo "Listing root contents:"
         ls -l /
-        echo "Listing contents of /home/runner/work//Hamad-marral/DevOps-pro.git//Hamad-marral/DevOps-pro.git:"
-        ls -l /home/runner/work//Hamad-marral/DevOps-pro.git//Hamad-marral/DevOps-pro.git
+        echo "Listing contents of /home/runner/work///home/runner/work/DevOps-pro/DevOps-pro:"
+        ls -l /home/runner/work///home/runner/work/DevOps-pro/DevOps-pro:
         
     - name: Terraform Init
       run: | 
