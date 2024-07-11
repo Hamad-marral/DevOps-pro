@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "main" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"  # Replace with your desired availability zone
+  availability_zone = "us-east-1"  # Replace with your desired availability zone
 
   tags = {
     Name = "main-subnet"
@@ -21,7 +21,7 @@ resource "aws_subnet" "main" {
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-0103953a003440c37"  # Replace with a valid AMI ID for your region
+  ami           = "ami-032346ab877c418af"  # Replace with a valid AMI ID for your region
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.main.id
 
