@@ -36,7 +36,14 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./terraform
 
+      - name: Show Terraform Plan
+        run: terraform show -json tfplan
+        working-directory: ./terraform
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+        run: |
+          terraform apply -auto-approve tfplan -input=false -no-color
+          echo "apply_output=$(terraform output -json)" >> $GITHUB_STATE
+          echo "apply_output=$(terraform output -json)" >> $GITHUB_OUTPUT
         working-directory: ./terraform
