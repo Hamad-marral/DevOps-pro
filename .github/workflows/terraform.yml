@@ -36,24 +36,7 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./terraform
 
-      - name: Terraform plan
-        id: plan
-        run: |
-          set +e
-          terraform plan -detailed-exitcode -input=false -out=tfplan
-          exit_code=$?
-          set -e
-          if [ $exit_code -eq 2 ]; then
-            echo "There are pending changes."
-            exit 0
-          elif [ $exit_code -eq 0 ]; then
-            echo "No changes detected in the Terraform plan."
-            exit 0
-          else
-            echo "Terraform plan failed."
-            exit 1
-          fi
-
+     
       - name: Show Terraform Plan
         run: terraform show -json tfplan
         working-directory: ./terraform
