@@ -1,31 +1,17 @@
 provider "aws" {
-  region = "us-east-1"  # Replace with your desired AWS region
-}
-
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
-    Name = "main-vpc"
-  }
-}
-
-resource "aws_subnet" "main" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1"  # Replace with your desired availability zone
-
-  tags = {
-    Name = "main-subnet"
-  }
+  region = "us-east-1"
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-032346ab877c418af"  # Replace with a valid AMI ID for your region
+  ami           = "ami-0b27735385ddf20e8"
   instance_type = "t2.micro"
-  subnet_id     = aws_subnet.main.id
+  key_name      = "EC2_key_pair"  # Ensure this matches the name of the key pair in AWS
 
   tags = {
-    Name = "ExampleInstance"
+    Name = "example-instance"
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook ansible/configure_ec2.yml -i '${self.public_ip},' -u ubuntu --private-key=private_key"
   }
 }
