@@ -30,19 +30,15 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-      working-directory: ./terraform
 
     - name: Terraform Plan
       run: terraform plan -out=tfplan
-      working-directory: ./terraform
 
     - name: Show Terraform Plan
       run: terraform show -json tfplan > tfplan.json
-      working-directory: ./terraform
 
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
-      working-directory: ./terraform
 
     - name: Setup Ansible
       run: sudo apt-get update && sudo apt-get install -y ansible
@@ -60,4 +56,3 @@ jobs:
     - name: Post Checkout repository
       if: always()
       uses: actions/checkout@v2
-
