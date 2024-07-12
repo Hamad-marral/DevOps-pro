@@ -37,12 +37,7 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: |
-          terraform apply -auto-approve tfplan || (echo "Failed to apply Terraform changes"; exit 1)
+          terraform apply -auto-approve tfplan 
         working-directory: ./terraform
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: |
-         set -x
-          terraform apply -auto-approve tfplan || (echo "Failed to apply Terraform changes"; exit 1)
-        working-directory: ./terraform
+
 
