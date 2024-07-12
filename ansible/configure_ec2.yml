@@ -1,21 +1,40 @@
 ---
-- name: Configure EC2 Instance
+- name: Configure EC2 instance
   hosts: all
-  become: true
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
   tasks:
-    - name: Update apt cache
+    - name: Update and upgrade apt packages
       apt:
         update_cache: yes
-      when: ansible_os_family == 'Debian'
+        upgrade: dist
 
-    - name: Install nginx
+    - name: Install Apache
       apt:
-        name: nginx
+        name: apache2
         state: present
-      when: ansible_os_family == 'Debian'
 
-    - name: Start nginx service
-      service:
-        name: nginx
+    - name: Start and enable Apache
+      systemd:
+        name: apache2
         state: started
-      when: ansible_os_family == 'Debian'
+        enabled: yes
+
+    - name: Create a custom index.html
+      copy:
+        content: |
+          <html>
+          <head>
+              <title>Welcome to Apache Server!</title>
+          </head>
+          <body>
+              <h1>Hello from Ansible</h1>
+          </body>
+          </html>
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
