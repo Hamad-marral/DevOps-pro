@@ -1,0 +1,21 @@
+---
+- name: Configure EC2 Instance
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Start nginx service
+      service:
+        name: nginx
+        state: started
+      when: ansible_os_family == 'Debian'
