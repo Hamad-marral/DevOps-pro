@@ -3,7 +3,7 @@ name: Terraform EC2 Instance
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   terraform:
